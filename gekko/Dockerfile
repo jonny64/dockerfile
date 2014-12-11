@@ -1,10 +1,13 @@
-FROM ubuntu
+FROM debian:stable
 
-RUN apt-get update \
-	&& apt-get install -y nodejs npm git nano
+RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository ppa:chris-lea/node.js \
+	&& sed -i 's/wheezy/lucid/' /etc/apt/sources.list.d/chris-lea-node_js-wheezy.list \
+	&& apt-get update \
+	&& apt-get install -y nodejs npm git nano \
+	&& apt-get clean
 RUN mkdir /var/projects && cd /var/projects \
-	&& git clone git://github.com/askmike/gekko.git && cd gekko && npm install
-RUN cd /var/projects/gekko && perl -p -i -e 's/debug = true/debug = false/' config.js \
+	&& git clone git://github.com/askmike/gekko.git && cd gekko && npm install \
+	&& cd /var/projects/gekko && perl -p -i -e 's/debug = true/debug = false/' config.js \
 	&& perl -p -i -e "s/exchange: 'bitstamp'/exchange: 'BTCe'/" config.js \
 	&& perl -p -i -e "s/asset: 1/asset: 0/" config.js
 
