@@ -12,7 +12,7 @@ RUN cd /var/projects/gekko && perl -p -i -e 's/debug = true/debug = false/' conf
 WORKDIR /var/projects/gekko
 
 # Define default command.
-CMD ["/usr/bin/nodejs /var/projects/gekko/gekko.js"]
+CMD ["nodejs", "gekko.js"]
 
 # Expose ports.
 # EXPOSE xxxx
