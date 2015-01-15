@@ -10,16 +10,7 @@ RUN mkdir /var/projects && cd /var/projects \
 	&& apt-get -y remove build-essential && apt-get -y autoremove \
 	&& apt-get clean
 
-ADD keys.cson /var/projects/ctrade/keys.cson
-
-ADD setup_configs.sh /var/projects/ctrade/setup_configs.sh
-
-ADD ichimoku.coffee /var/projects/ctrade/ichimoku.coffee
-
 WORKDIR /var/projects/ctrade
 
-CMD bash setup_configs.sh && cd /var/projects/ctrade \
+CMD cd /var/projects/ctrade \
 	&& node_modules/.bin/iced cryptrade.coffee ichimoku.coffee
-
-# Expose ports.
-# EXPOSE xxxx
