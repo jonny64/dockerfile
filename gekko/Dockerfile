@@ -16,6 +16,3 @@ WORKDIR /var/projects/gekko
 
 # Define default command.
 CMD ["nodejs", "gekko.js"]
-
-# Expose ports.
-# EXPOSE xxxx
