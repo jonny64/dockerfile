@@ -1,12 +1,15 @@
 FROM debian:stable
 
-RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository ppa:chris-lea/node.js \
-	&& sed -i 's/wheezy/lucid/' /etc/apt/sources.list.d/chris-lea-node_js-wheezy.list \
+RUN apt-get update \
 	&& apt-get update \
 	&& apt-get install -y nodejs npm git nano \
-	&& apt-get clean
-RUN mkdir /var/projects && cd /var/projects \
-	&& git clone git://github.com/askmike/gekko.git && cd gekko && npm install
+	&& mkdir /var/projects && cd /var/projects \
+	&& git clone git://github.com/askmike/gekko.git && cd gekko && npm install \
+	&& apt-get -y purge git binutils build-essential python2.7 perl \
+	&& apt-get -y autoclean && apt-get -y clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* \
+	&& rm -rf /usr/lib/locale \
+	&& rm -rf /usr/lib/gcc \
+	&& rm -rf /usr/share/locale
 
 # Define working directory.
 WORKDIR /var/projects/gekko
